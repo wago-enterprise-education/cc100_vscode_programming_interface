@@ -11,8 +11,8 @@
 
 ## Ziele
 
-- [ ] Ethernetverbindung über Raspberry Pi
-- [ ] Webserver auf CC100
+- [x] Ethernetverbindung über Raspberry Pi
+- [x] Webserver auf CC100
 - [ ] Container auf CC100 zum programmieren
 
 
