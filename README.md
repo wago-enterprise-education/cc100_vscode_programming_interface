@@ -37,3 +37,10 @@ unzip LCD-show-master.zip
 cd LCD-show-master/
 sudo bash ./LCD5-show
 ```
+
+### CC100
+
+Docker Caontainer von DockerHub laden
+´docker pull konradholsmoelle/vscpy´
+
+vscpy.sh ausführen
