@@ -40,7 +40,7 @@ sudo bash ./LCD5-show
 
 ### CC100
 
-Docker Caontainer von DockerHub laden
-´docker pull konradholsmoelle/vscpy´
+Docker Caontainer von DockerHub laden <br>
+`docker pull konradholsmoelle/vscpy`
 
 vscpy.sh ausführen
