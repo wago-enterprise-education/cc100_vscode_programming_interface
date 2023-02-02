@@ -1,6 +1,6 @@
 #Folgender Programmcode verbindet den W-Lan-Adapter des Raspberry Pi 4 mit dem Ethernetanschluss.
 #Dadurch lässt sich ein Endgerät (WAGO -Controller) mit dem öffentlichen W-Lan verbinden.
-#"sudo apt-get install dnsmasq" muss im Vorfeld auf dem Respberry Pi installiert worden sein.
+#"sudo apt-get install dnsmasq" muss im Vorfeld auf dem Raspberry Pi installiert worden sein.
 
 #!/bin/bash
 
