@@ -13,7 +13,7 @@
 
 - [x] Ethernetverbindung über Raspberry Pi
 - [x] Webserver auf CC100
-- [ ] Container auf CC100 zum programmieren
+- [x] Container auf CC100 zum programmieren
 
 
 
@@ -39,6 +39,7 @@ sudo bash ./LCD5-show
 ```
 
 ### CC100
+[*Docker installieren*](https://github.com/WAGO/docker-ipk)
 
 Docker Caontainer von DockerHub laden <br>
 `docker pull konradholsmoelle/vscpy`
