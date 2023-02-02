@@ -39,7 +39,7 @@ sudo bash ./LCD5-show
 ```
 
 ### CC100
-[*Docker installieren*](https://github.com/WAGO/docker-ipk)
+[Docker installieren](https://github.com/WAGO/docker-ipk)
 
 Docker Caontainer von DockerHub laden <br>
 `docker pull konradholsmoelle/vscpy`
