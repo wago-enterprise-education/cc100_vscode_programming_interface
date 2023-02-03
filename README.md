@@ -42,6 +42,6 @@ sudo bash ./LCD5-show
 [Docker installieren](https://github.com/WAGO/docker-ipk)
 
 Docker Caontainer von DockerHub laden <br>
-`docker pull konradholsmoelle/vscpy`
+`docker pull konradholsmoelle/vscpy:cc100latest`
 
 vscpy.sh ausführen
