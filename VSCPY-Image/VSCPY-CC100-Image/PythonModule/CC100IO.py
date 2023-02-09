@@ -3,7 +3,7 @@
 #Ansteuern der Ein- und Ausgänge aus https://github.com/WAGO/cc100-howtos/blob/main/HowTo_Access_Onboard_IO/accessIO_CC100.py
 
 import Cal
-#Funktionen zum ansteuern und auslesen der Ein- und Ausgänge
+#Funktionen zum Ansteuern und Auslesen der Ein- und Ausgänge
 def digitalWrite(xStatus: bool, iAusgang: int):
     """
     xStatus: Status, auf welchen der ausgewählte Ausgang gesetzt werden soll
@@ -12,7 +12,7 @@ def digitalWrite(xStatus: bool, iAusgang: int):
     Funktion schaltet den Ausgang auf den angegeben Status.
     Funktion überprüft nicht den aktuellen Status des Ausgangs.
     """
-    #Auslesen des aktuelle geschalteten Zustandes für die Berechnung des neuen Wertes in der Datei
+    #Auslesen des aktuell geschalteten Zustandes für die Berechnung des neuen Wertes in der Datei
     fname="/home/ea/dout/DOUT_DATA"
     datei = open(fname, "r")
     schaltung = int(datei.read())
@@ -42,7 +42,7 @@ def digitalWrite(xStatus: bool, iAusgang: int):
             schaltung = schaltung - 8
     else:
         print("Ausgang nicht korrekt")
-    #Schhreibt den für die neue Konfiguration errechneten Wert in die Datei auf dem CC100 
+    #Schreibt den für die neue Konfiguration errechneten Wert in die Datei auf dem CC100 
     datei = open(fname, "w")
     datei.write(str(schaltung))
     datei.close()

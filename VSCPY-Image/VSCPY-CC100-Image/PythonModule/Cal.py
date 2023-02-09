@@ -15,7 +15,7 @@ def readCalibriationData():
     calib_data=f.readlines()[1:]
     f.close()
 
-def getCalibartionData(value):
+def getCalibrationData(value):
     """
     Gibt die Klalibrierungs Informationen für die gefragte Zeile der Tabelle zurück
     """
@@ -47,9 +47,9 @@ def calibrateOut(iSpannung: int, iAusgang: int):
     readCalibriationData()
     #Nimmt je nach Ausgang einen anderen Satz Kalibrierungsdaten
     if iAusgang == 1:
-        cal_ao = getCalibartionData(4)
+        cal_ao = getCalibrationData(4)
     elif iAusgang == 2:
-        cal_ao = getCalibartionData(5)
+        cal_ao = getCalibrationData(5)
     #Berechnet und gibt den Wert zurück
     return calcCalibrate(iSpannung, cal_ao)
 
@@ -61,8 +61,8 @@ def calibrateIn(iWert: int, iEingang: int):
     readCalibriationData()
     #Nimmt je nach Eingang einen anderen Satz Kalibrierungsdaten
     if iEingang == 1:
-        cal_ai = getCalibartionData(2)
+        cal_ai = getCalibrationData(2)
     if iEingang == 2:
-        cal_ai = getCalibartionData(3)
+        cal_ai = getCalibrationData(3)
     #Errechnet den zu schreibenden Wert und gibt diesen zurück
     return calcCalibrate(iWert, cal_ai)
