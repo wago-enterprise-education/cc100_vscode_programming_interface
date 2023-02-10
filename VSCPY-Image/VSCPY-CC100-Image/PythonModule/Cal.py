@@ -2,28 +2,27 @@
 #konrad.holsmoelle@wago.com
 #mattis.schrade@wago.com
 
-#Kalibrierung der Ausgänge aus https://github.com/WAGO/cc100-howtos/blob/main/HowTo_Access_Onboard_IO/accessIO_CC100.py
+#Output calibration from: https://github.com/WAGO/cc100-howtos/blob/main/HowTo_Access_Onboard_IO/accessIO_CC100.py
 
 def readCalibriationData():
     """
-    Liest die Daten aus Kalibrierungsdatei auf dem CC100
+    Reads out the data of the calibrationdata from the CC100
     """
     global calib_data
     fname="/home/ea/cal/calib"
     f = open(fname, "r")
-    #Liest die Daten aber Überspringt die Kopfzeile
     calib_data=f.readlines()[1:]
     f.close()
 
 def getCalibrationData(value):
     """
-    Gibt die Klalibrierungs Informationen für die gefragte Zeile der Tabelle zurück
+    Returns the calibrationdata for the required row of the table
     """
     return calib_data[value].rstrip().split(' ', 4)
 
 def calcCalibrate(val_uncal, calib):
     """
-    Errechnet den Wert für den Ausgang für die gewünschte Spannung
+    Calcutes the value of the voltage for the required output
     """
     x1=int(calib[0])
     y1=int(calib[1])
@@ -36,33 +35,32 @@ def calcCalibrate(val_uncal, calib):
 
     return int(val_cal)
 
-def calibrateOut(iSpannung: int, iAusgang: int):
+def calibrateOut(iVoltage: int, iOutput: int):
     """
-    iSpannung: Spannung welche an dem Ausgang anliegen soll
-    iAusgang: Ausgang welcher geschaltet werden soll
+    iVoltage: Voltage to be applied to the input
+    iOutput: Output which should be switched
 
-    Gibt den Wert, welcher für die angegebenen Spannung am CC100 geschrieben werden muss.
+    Returns the value which is to be written with the specified voltage
     """
     
     readCalibriationData()
     #Nimmt je nach Ausgang einen anderen Satz Kalibrierungsdaten
-    if iAusgang == 1:
+    if iOutput == 1:
         cal_ao = getCalibrationData(4)
-    elif iAusgang == 2:
+    elif iOutput == 2:
         cal_ao = getCalibrationData(5)
     #Berechnet und gibt den Wert zurück
-    return calcCalibrate(iSpannung, cal_ao)
+    return calcCalibrate(iVoltage, cal_ao)
 
-def calibrateIn(iWert: int, iEingang: int):
+def calibrateIn(iValue: int, iInput: int):
     """
-    iWert: Aus der Datei für den Ausgang gegebenen Wert
-    iEingang: Eingang an welchem der Wert ausgelesen wurde
+    iValue: Value given for the file from the output
+    iInput: Input at which the value was read
     """
     readCalibriationData()
-    #Nimmt je nach Eingang einen anderen Satz Kalibrierungsdaten
-    if iEingang == 1:
+    if iInput == 1:
         cal_ai = getCalibrationData(2)
-    if iEingang == 2:
+    if iInput == 2:
         cal_ai = getCalibrationData(3)
-    #Errechnet den zu schreibenden Wert und gibt diesen zurück
-    return calcCalibrate(iWert, cal_ai)
+    #Returns the calculated value 
+    return calcCalibrate(iValue, cal_ai)
