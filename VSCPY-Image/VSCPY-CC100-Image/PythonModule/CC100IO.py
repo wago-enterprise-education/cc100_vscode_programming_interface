@@ -1,9 +1,10 @@
-#Erstellt von Konrad Holsmölle
-#konrad.holsmoelle@wago.com
-#Ansteuern der Ein- und Ausgänge aus https://github.com/WAGO/cc100-howtos/blob/main/HowTo_Access_Onboard_IO/accessIO_CC100.py
+# Created by Konrad Holsmölle
+# konrad.holsmoelle@wago.com
+
+# Control of input and output from https://github.com/WAGO/cc100-howtos/blob/main/HowTo_Access_Onboard_IO/accessIO_CC100.py
 
 import Cal
-#Funktionen zum Ansteuern und Auslesen der Ein- und Ausgänge
+# Functions to control and read the inputs and outputs
 def digitalWrite(xStatus: bool, iAusgang: int):
     """
     xStatus: Status, auf welchen der ausgewählte Ausgang gesetzt werden soll
@@ -12,14 +13,19 @@ def digitalWrite(xStatus: bool, iAusgang: int):
     Funktion schaltet den Ausgang auf den angegeben Status.
     Funktion überprüft nicht den aktuellen Status des Ausgangs.
     """
-    #Auslesen des aktuell geschalteten Zustandes für die Berechnung des neuen Wertes in der Datei
+    ## Auslesen des aktuell geschalteten Zustandes für die Berechnung des neuen Wertes in der Datei
+    # Reading of the current state of the outputs to calculate the new value in the file
     fname="/home/ea/dout/DOUT_DATA"
     datei = open(fname, "r")
     schaltung = int(datei.read())
     datei.close()
-    #Addition bzw. Subtraktion zum aktuellen Zustand um den entsprechenden Ausgang zu schalten
-    #Least Significant Bit entspricht dabei digitalem Ausgang 1, das 4. Bit entspricht Ausgang 8
-    #In die Datei wird eine Zahl von 0 bis 15 geschrieben
+    ## Addition bzw. Subtraktion zum aktuellen Zustand um den entsprechenden Ausgang zu schalten
+    ## Least Significant Bit entspricht dabei digitalem Ausgang 1, das 4. Bit entspricht Ausgang 8
+    ## In die Datei wird eine Zahl von 0 bis 15 geschrieben
+
+    # Addition or rather subtraction to the current state to switch the corresponding output
+    # Least Significant Bit corresponds to digital output 1, the 4th bit corresponds to output 8
+    # A number from 0 to 15 is written to the file
     if iAusgang == 1:
         if xStatus:
             schaltung = schaltung + 1
@@ -42,11 +48,15 @@ def digitalWrite(xStatus: bool, iAusgang: int):
             schaltung = schaltung - 8
     else:
         print("Ausgang nicht korrekt")
-    #Schreibt den für die neue Konfiguration errechneten Wert in die Datei auf dem CC100 
+    ## Schreibt den für die neue Konfiguration errechneten Wert in die Datei auf dem CC100 
+    # Writes the calculated value for the new configuration to the file on the CC100
+
+
     datei = open(fname, "w")
     datei.write(str(schaltung))
     datei.close()
-    #Gibt True nach Abschluss zurück
+    ## Gibt True nach Abschluss zurück
+    # Returns True after completion
     return True
 
 def analogWrite(iSpannung: int, iAusgang: int):
@@ -59,7 +69,8 @@ def analogWrite(iSpannung: int, iAusgang: int):
     iSpannung = Cal.calibrateOut(iSpannung, iAusgang)
     if iSpannung < 0:
         iSpannung = 0
-    #Aktiviert die analogen Ausgänge am CC100 durch schreiben 
+    ## Aktiviert die analogen Ausgänge am CC100 durch schreiben 
+    # Activates the analog outputs on the CC100 by writing
     AO1_POWER_FILE="/home/ea/anout/40017000.dac:dac@1/iio:device0/out_voltage1_powerdown"
     f=open(AO1_POWER_FILE, "w")
     f.write("0")
@@ -68,19 +79,26 @@ def analogWrite(iSpannung: int, iAusgang: int):
     datei=open(AO2_POWER_FILE, "w")
     datei.write("0")
     datei.close()
-    #Schreibt den aus der Kalibrierung für den passenden Ausgang entnommenen Wert für die Spannung in die Datei für den Ausgang
-    #Beim ausschalten wird eine Null in die Datei geschrieben
-    #Kalibrierung mit calibration.py
+    ## Schreibt den, aus der Kalibrierung für den passenden Ausgang entnommenen, Wert für die Spannung in die Datei für den Ausgang
+    ## Beim ausschalten wird eine Null in die Datei geschrieben
+    ## Kalibrierung mit calibration.py
+
+    # Writes the value, taken from the calibration for the corresponding output, for the voltage to the file for the output
+    # When turning off, a zero is written to the file
+    # Calibration with calibration.py
     if iAusgang == 1:
         AO1_VOLTAGE_FILE="/home/ea/anout/40017000.dac:dac@1/iio:device0/out_voltage1_raw"
         datei=open(AO1_VOLTAGE_FILE, "w")
-        #Änderung für die Spannung von Ausgang 1 in der folgenden Zeile
+        ## Änderung für die Spannung von Ausgang 1 in der folgenden Zeile
+        # Change for the voltage of output 1 in the following line
+
         datei.write(str(iSpannung))
         datei.close()
     if iAusgang == 2:
         AO1_VOLTAGE_FILE="/home/ea/anout/40017000.dac:dac@2/iio:device1/out_voltage2_raw"
         datei=open(AO1_VOLTAGE_FILE, "w")
-        #Änderung für die Spannung von Ausgang 1 in der folgenden Zeile
+        ## Änderung für die Spannung von Ausgang 1 in der folgenden Zeile
+        # Change for the voltage of output 1 in the following line
         datei.write(str(iSpannung))
         datei.close()
 
@@ -91,17 +109,21 @@ def digitalRead(iEingang: int):
     Liest den Eingang aus
     Gibt True oder False entsprechend dem Status zurück
     """
-    #Liest den Zustand der digitalen Eingänge auf dem CC100
+    ## Liest den Zustand der digitalen Eingänge auf dem CC100
+    # Reads the state of the digital inputs on the CC100
     fname="/home/ea/din/din"
     datei = open (fname, "r")
     dig_in = datei.readline()
     datei.close()
-    #Formt den aktuellen Zustand in einen 8-Stelligen binär Code um
+    ## Formt den aktuellen Zustand in einen 8-Stelligen binär Code um
+    # Formats the current state into an 8-digit binary code
     dig_in = int (dig_in)
     dig_in_bin=format(dig_in, "08b")
-    #Errechnet die Position des Bits vom gesuchten Eingang
+    ## Errechnet die Position des Bits vom gesuchten Eingang
+    # Calculates the position of the bit from the desired input
     iBit = 8 - iEingang
-    #Gibt den Wert von dem Zustand des gesuchten Einganges zurück
+    ## Gibt den Wert von dem Zustand des gesuchten Einganges zurück
+    # Returns the value of the state of the desired input
     if int(dig_in_bin[iBit])==1:
         return True
     else:
@@ -116,13 +138,16 @@ def digitalReadWait(iEingang: int, xZustand: bool):
     Funktion läuft bis der Zustand erreicht ist.
     """
     eingangSchleife = True
-    #Wandelt den angegebenen Zustand in eine Zahl um
+    ## Wandelt den angegebenen Zustand in eine Zahl um
+    # Converts the given state into a number
     if xZustand:
         xZustand = 1
     else:
         xZustand = 0
-    #Fragt solange den Eingang ab, bis dieser den angegebenen Zustand erreicht hat
-    #Beendet dann die Schleife und gibt True zurück
+    ## Fragt solange den Eingang ab, bis dieser den angegebenen Zustand erreicht hat
+    ## Beendet dann die Schleife und gibt True zurück
+    # Checks the input as long as it reaches the given state
+    # Then ends the loop and returns True
     while eingangSchleife:
         if digitalRead(iEingang)==xZustand:
             eingangSchleife = False
@@ -134,14 +159,23 @@ def analogRead(iEingang: int):
 
     Liest den Eingang aus und gibt den kalibrierten Wert in mV zurück.
     """
-    #Wählt die für den Eingang passende Datei aus
+    ## Wählt die für den Eingang passende Datei aus
+    # Selects the file that matches the input
     if iEingang == 1:
         fname="/home/ea/anin/48003000.adc:adc@100/iio:device3/in_voltage3_raw"
     if iEingang == 2:
         fname="/home/ea/anin/48003000.adc:adc@100/iio:device3/in_voltage0_raw"
-    #Öffnet die Datei und liest die den Wert in dieser aus
+    ## Öffnet die Datei und liest den Wert in dieser aus
+    # Opens the file and reads the value in it
     f=open(fname, "r")
     iSpannung=int(f.readline())
     f.close()
-    #Kalibriert den Wert und gibt diesen zurück
+    ## Kalibriert den Wert und gibt diesen zurück
+    # Calibrates the value and returns it
     return(Cal.calibrateIn(iSpannung, iEingang))
+    
+    
+
+
+    # Co-pilot komentar
+    # translate previous comment to English
