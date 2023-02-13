@@ -8,10 +8,13 @@ def readCalibriationData():
     Reads out the data of the calibrationdata from the CC100
     """
     global calib_data
-    fname="/home/ea/cal/calib"
-    f = open(fname, "r")
-    calib_data=f.readlines()[1:]
-    f.close()
+    filename="/home/ea/cal/calib"
+    try:
+        file = open(name = filename, mode = "r")
+    except:
+        print("Fehler! Pfad nicht vorhanden.")
+    calib_data = file.readlines()[1:]    
+    file.close()
 
 def getCalibrationData(value):
     """

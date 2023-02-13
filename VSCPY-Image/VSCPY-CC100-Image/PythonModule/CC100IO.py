@@ -150,4 +150,9 @@ def analogRead(iEingang: int):
     iSpannung=int(f.readline())
     f.close()
     # Calibrates the value and returns it
+<<<<<<< Updated upstream
     return(Cal.calibrateIn(iSpannung, iEingang))
+=======
+    return(Cal.calibrateIn(iSpannung, iEingang))
+    
+>>>>>>> Stashed changes
