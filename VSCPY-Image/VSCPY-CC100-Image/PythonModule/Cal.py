@@ -2,6 +2,10 @@
 # konrad.holsmoelle@wago.com
 # mattis.schrade@wago.com
 
+# Modified by Sascha Hahn, Bjarne Zaremba
+# sascha.hahn@wago.com
+# bjarne.zaermba@wago.com
+
 # Output calibration from: https://github.com/WAGO/cc100-howtos/blob/main/HowTo_Access_Onboard_IO/accessIO_CC100.py
 def readCalibriationData():
     """
