@@ -1,4 +1,4 @@
-# Created by Konrad Holsmoelle
+# Created by Konrad Holsmölle
 # konrad.holsmoelle@wago.com
 
 # Modified by Sascha Hahn, Bjarne Zaremba

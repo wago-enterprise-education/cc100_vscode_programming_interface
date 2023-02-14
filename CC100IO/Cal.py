@@ -1,4 +1,4 @@
-# Created by Konrad Holsmoelle, Mattis Schrade
+# Created by Konrad Holsmölle, Mattis Schrade
 # konrad.holsmoelle@wago.com
 # mattis.schrade@wago.com
 
@@ -57,7 +57,7 @@ def calibrateOut(iVoltage: int, iOutput: int):
         cal_ao = getCalibrationData(4)
     elif iOutput == 2:
         cal_ao = getCalibrationData(5)
-    #Berechnet und gibt den Wert zurueck
+    #Berechnet und gibt den Wert zurück
     return calcCalibrate(iVoltage, cal_ao)
 
 def calibrateIn(iValue: int, iInput: int):
