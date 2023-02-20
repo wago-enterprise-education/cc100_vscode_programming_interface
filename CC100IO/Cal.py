@@ -72,3 +72,16 @@ def calibrateIn(iValue: int, iInput: int):
         cal_ai = getCalibrationData(3)
     #Returns the calculated value 
     return calcCalibrate(iValue, cal_ai)
+
+def calibrateTemp(iValue: int, iInput: int):
+    """
+    iValue: Value given for the file from the output
+    iInput: Input at which the value was read
+    """
+    readCalibriationData()
+    if iInput == 1:
+        cal_Temp = getCalibrationData(0)
+    if iInput == 2:
+        cal_Temp = getCalibrationData(1)
+    #Returns the calculated value 
+    return calcCalibrateTemp(iValue, cal_Temp)
