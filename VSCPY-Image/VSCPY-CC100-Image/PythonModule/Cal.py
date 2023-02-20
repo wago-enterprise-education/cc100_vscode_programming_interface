@@ -83,5 +83,6 @@ def calibrateTemp(iValue: int, iInput: int):
         cal_Temp = getCalibrationData(0)
     if iInput == 2:
         cal_Temp = getCalibrationData(1)
-    #Returns the calculated value 
-    return calcCalibrate(iValue, cal_Temp)
+    #Returns the calculated value in °C
+    temp = (cal_Temp-1000)/(3.91)
+    return calcCalibrate(iValue, temp)
