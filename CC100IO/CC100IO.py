@@ -255,7 +255,7 @@ def analogRead(input: AnalogInputs):
     else:
 	    raise TypeError("iEingang is not of type AnalogInputs")
 
-def TempRead(input: TempInputs):
+def tempRead(input: TempInputs):
     """
     input: PT input to be switched
 
