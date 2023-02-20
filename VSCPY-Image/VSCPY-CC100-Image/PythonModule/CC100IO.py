@@ -258,7 +258,6 @@ def analogRead(input: AnalogInputs):
 def tempRead(input: TempInputs):
     """
     input: PT input to be switched
-
     Function reads the input and returns the calibrated value in °C as an Integer.
     """
 
@@ -282,7 +281,7 @@ def tempRead(input: TempInputs):
         file.close()
 
         # Calibrates the value and returns it
-        return(Cal.calibrateIn(voltage, input))
+        return(Cal.calibrateTemp(voltage, input))
     else:
 	    raise TypeError("iEingang is not of type TempInputs")
 
