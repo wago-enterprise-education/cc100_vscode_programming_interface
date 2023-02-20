@@ -84,4 +84,4 @@ def calibrateTemp(iValue: int, iInput: int):
     if iInput == 2:
         cal_Temp = getCalibrationData(1)
     #Returns the calculated value 
-    return calcCalibrateTemp(iValue, cal_Temp)
+    return calcCalibrate(iValue, cal_Temp)
