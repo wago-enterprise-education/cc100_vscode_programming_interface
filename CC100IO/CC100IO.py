@@ -36,6 +36,11 @@ AnalogInputs = Enum("", ["AI1", "AI2"])
 AI1 = AnalogInputs.AI1
 AI2 = AnalogInputs.AI2
 
+TempInputs = Enum("", ["PT1", "PT2"])
+PT1 = TempInputs.PT1
+PT2 = TempInputs.PT2
+
+
 # Functions to control and read the inputs and outputs.
 def digitalWrite(output: DigitalOutputs, value: bool):
     """
@@ -250,6 +255,38 @@ def analogRead(input: AnalogInputs):
     else:
 	    raise TypeError("iEingang is not of type AnalogInputs")
 
+def TempRead(input: TempInputs):
+    """
+    input: PT input to be switched
+
+    Function reads the input and returns the calibrated value in °C as an Integer.
+    """
+
+    # Check if the type of the input is correct
+    if(type(input) == TempInputs):
+
+        # Changing input to the desired Integer
+        if input == PT1:
+            input = 1
+        elif input == PT2:
+            input = 2
+
+        # Reads the state of the PT input on the CC100
+        if input == 1:
+            path="/home/ea/anin/48003000.adc:adc@100/iio:device2/in_voltage13_raw"
+        elif input == 2:
+            path="/home/ea/anin/48003000.adc:adc@100/iio:device2/in_voltage1_raw"
+
+        file = open(path, "r")
+        voltage = int(file.readline())
+        file.close()
+
+        # Calibrates the value and returns it
+        return(Cal.calibrateIn(voltage, input))
+    else:
+	    raise TypeError("iEingang is not of type TempInputs")
+
+	
 def digitalReadWait(input: DigitalInputs, value: bool):
     """
     input: Digital input to be checked
