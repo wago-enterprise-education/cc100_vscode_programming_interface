@@ -3,6 +3,7 @@
 #Ansteuern der Ein- und Ausgaenge aus https://github.com/WAGO/cc100-howtos/blob/main/HowTo_Access_Onboard_IO/accessIO_CC100.py
 
 import Cal
+import time
 #Funktionen zum Ansteuern und Auslesen der Ein- und Ausgaenge
 def digitalWrite(xStatus, iAusgang):
     """
@@ -145,3 +146,7 @@ def analogRead(iEingang):
     f.close()
     #Kalibriert den Wert und gibt diesen zurueck
     return(Cal.calibrateIn(iSpannung, iEingang))
+
+def delay(iTime):
+    iTime = iTime/1000
+    time.sleep(iTime)
