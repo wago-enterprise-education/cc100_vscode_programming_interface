@@ -1,5 +1,4 @@
 FROM linuxserver/code-server
 
-RUN apt update &&\
+RUN /bin/bash -c 'apt update &&\
     apt install -y python3 &&\
-    chmod -R 777 /home/

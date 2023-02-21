@@ -2,23 +2,17 @@
 # konrad.holsmoelle@wago.com
 # mattis.schrade@wago.com
 
-# Modified by Sascha Hahn, Bjarne Zaremba
-# sascha.hahn@wago.com
-# bjarne.zaremba@wago.com
-
-import logging
-
 # Output calibration from: https://github.com/WAGO/cc100-howtos/blob/main/HowTo_Access_Onboard_IO/accessIO_CC100.py
 def readCalibriationData():
     """
     Reads out the data of the calibrationdata from the CC100
     """
     global calib_data
-    filename="/home/ea/cal/calib"
+    filename="/etc/calib"
     try:
         file = open(name = filename, mode = "r")
     except:
-        logging.warning("Fehler! Pfad nicht vorhanden.")
+        print("Fehler! Pfad nicht vorhanden.")
     calib_data = file.readlines()[1:]    
     file.close()
 
@@ -43,7 +37,7 @@ def calcCalibrate(val_uncal, calib):
 
     return int(val_cal)
 
-def calibrateOut(iVoltage: int, iOutput: int):
+def calibrateOut(iVoltage, iOutput):
     """
     iVoltage: Voltage to be applied to the input
     iOutput: Output which should be switched
@@ -52,15 +46,15 @@ def calibrateOut(iVoltage: int, iOutput: int):
     """
     
     readCalibriationData()
-    #Nimmt je nach Ausgang einen anderen Satz Kalibrierungsdaten
+    # Takes a different set of calibration data depending on the output
     if iOutput == 1:
         cal_ao = getCalibrationData(4)
     elif iOutput == 2:
         cal_ao = getCalibrationData(5)
-    #Berechnet und gibt den Wert zurueck
+    # Calculates and returns the value
     return calcCalibrate(iVoltage, cal_ao)
 
-def calibrateIn(iValue: int, iInput: int):
+def calibrateIn(iValue, iInput):
     """
     iValue: Value given for the file from the output
     iInput: Input at which the value was read
