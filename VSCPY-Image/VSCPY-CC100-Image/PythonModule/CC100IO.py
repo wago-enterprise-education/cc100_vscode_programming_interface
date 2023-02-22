@@ -14,7 +14,7 @@ def digitalWrite(xStatus, iAusgang):
     Funktion ueberprueft nicht den aktuellen Status des Ausgangs.
     """
     #Auslesen des aktuell geschalteten Zustandes fuer die Berechnung des neuen Wertes in der Datei
-    fname="/sys/kernel/dout_drv/DOUT_DATA"
+    fname="/home/ea/dout/DOUT_DATA"
     datei = open(fname, "r")
     schaltung = int(datei.read())
     datei.close()
@@ -61,11 +61,11 @@ def analogWrite(iSpannung, iAusgang):
     if iSpannung < 0:
         iSpannung = 0
     #Aktiviert die analogen Ausgaenge am CC100 durch schreiben 
-    AO1_POWER_FILE="/sys/bus/iio/devices/iio:device0/out_voltage1_powerdown"
+    AO1_POWER_FILE="/home/ea/anout/40017000.dac:dac@1/iio:device0/out_voltage1_powerdown"
     f=open(AO1_POWER_FILE, "w")
     f.write("0")
     f.close()
-    AO2_POWER_FILE="/sys/bus/iio/devices/iio:device1/out_voltage2_powerdown"
+    AO2_POWER_FILE="/home/ea/anout/40017000.dac:dac@2/iio:device1/out_voltage2_powerdown"
     datei=open(AO2_POWER_FILE, "w")
     datei.write("0")
     datei.close()
@@ -73,13 +73,13 @@ def analogWrite(iSpannung, iAusgang):
     #Beim ausschalten wird eine Null in die Datei geschrieben
     #Kalibrierung mit calibration.py
     if iAusgang == 1:
-        AO1_VOLTAGE_FILE="/sys/bus/iio/devices/iio:device0/out_voltage1_raw"
+        AO1_VOLTAGE_FILE="/home/ea/anout/40017000.dac:dac@1/iio:device0/out_voltage1_raw"
         datei=open(AO1_VOLTAGE_FILE, "w")
         #aenderung fuer die Spannung von Ausgang 1 in der folgenden Zeile
         datei.write(str(iSpannung))
         datei.close()
     if iAusgang == 2:
-        AO1_VOLTAGE_FILE="/sys/bus/iio/devices/iio:device1/out_voltage2_raw"
+        AO1_VOLTAGE_FILE="/home/ea/anout/40017000.dac:dac@2/iio:device1/out_voltage2_raw"
         datei=open(AO1_VOLTAGE_FILE, "w")
         #aenderung fuer die Spannung von Ausgang 1 in der folgenden Zeile
         datei.write(str(iSpannung))
@@ -93,7 +93,7 @@ def digitalRead(iEingang):
     Gibt True oder False entsprechend dem Status zurueck
     """
     #Liest den Zustand der digitalen Eingaenge auf dem CC100
-    fname="/sys/devices/platform/soc/44009000.spi/spi_master/spi0/spi0.0/din"
+    fname="/home/ea/din/din"
     datei = open (fname, "r")
     dig_in = datei.readline()
     datei.close()
@@ -137,9 +137,9 @@ def analogRead(iEingang):
     """ 
     #Waehlt die fuer den Eingang passende Datei aus
     if iEingang == 1:
-        fname="/sys/bus/iio/devices/iio:device3/in_voltage3_raw"
+        fname="/home/ea/anin/48003000.adc:adc@100/iio:device3/in_voltage3_raw"
     if iEingang == 2:
-        fname="/sys/bus/iio/devices/iio:device3/in_voltage0_raw"
+        fname="/home/ea/anin/48003000.adc:adc@100/iio:device3/in_voltage0_raw"
     #oeffnet die Datei und liest die den Wert in dieser aus
     f=open(fname, "r")
     iSpannung=int(f.readline())
