@@ -8,7 +8,7 @@ def readCalibriationData():
     Reads out the data of the calibrationdata from the CC100
     """
     global calib_data
-    filename="/etc/calib"
+    filename="/home/ea/cal/calib"
     try:
         file = open(name = filename, mode = "r")
     except:
