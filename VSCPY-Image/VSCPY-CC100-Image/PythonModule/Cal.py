@@ -9,10 +9,9 @@ def readCalibriationData():
     """
     global calib_data
     filename="/home/ea/cal/calib"
-    try:
-        file = open(name = filename, mode = "r")
-    except:
-        print("Fehler! Pfad nicht vorhanden.")
+    
+    file = open(filename, "r")
+    
     calib_data = file.readlines()[1:]    
     file.close()
 
@@ -73,10 +72,9 @@ def calibrateTemp(iValue, iInput):
     iInput: Input at which the value was read
     """
     readCalibriationData()
-    if iInput == 1:
+    if iInput == "PT1":
         cal_Temp = getCalibrationData(0)
-    if iInput == 2:
+    if iInput == "PT2":
         cal_Temp = getCalibrationData(1)
     #Returns the calculated value in °C
-    temp = (cal_Temp-1000)/(3.91)
-    return calcCalibrate(iValue, temp)
+    return (calcCalibrate(iValue, cal_Temp)-1000)/(3.91)
