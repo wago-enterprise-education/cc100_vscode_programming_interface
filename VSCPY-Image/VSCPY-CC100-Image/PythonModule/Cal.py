@@ -67,7 +67,7 @@ def calibrateIn(iValue, iInput):
     #Returns the calculated value 
     return calcCalibrate(iValue, cal_ai)
 
-def calibrateTemp(iValue: int, iInput: int):
+def calibrateTemp(iValue, iInput):
     """
     iValue: Value given for the file from the output
     iInput: Input at which the value was read

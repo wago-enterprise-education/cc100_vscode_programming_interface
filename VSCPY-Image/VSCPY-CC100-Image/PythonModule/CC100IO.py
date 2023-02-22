@@ -150,3 +150,22 @@ def analogRead(iEingang):
 def delay(iTime):
     iTime = iTime/1000
     time.sleep(iTime)
+
+def tempRead(input):
+    """
+    input: PT input to be switched
+    Function reads the input and returns the calibrated value in °C as an Integer.
+    """
+    
+    if input == "PT1":
+        path="/sys/bus/iio/devices/iio:device2/in_voltage13_raw"
+    elif input == "PT2":
+        path="/sys/bus/iio/devices/iio:device2/in_voltage1_raw"
+    
+    file = open(path, "r")
+    voltage = int(file.readline())
+    file.close()
+
+    # Calibrates the value and returns it
+    return(Cal.calibrateTemp(voltage, input))
+    
