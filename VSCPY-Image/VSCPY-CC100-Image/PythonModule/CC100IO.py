@@ -12,147 +12,164 @@
 import time
 import logging
 #Funktionen zum Ansteuern und Auslesen der Ein- und Ausgaenge
-def digitalWrite(xStatus, iAusgang):
+def digitalWrite(output, value):
     """
-    xStatus: Status, auf welchen der ausgewaehlte Ausgang gesetzt werden soll
-    iAusgang: Digitaler Ausgang welcher geschaltet werden soll
+    value: Value which the selected output should be set to
+    output: Digital output to be switched
+    Function switches the output to the specified value.
+    Function does not check the current value of the output
+    Function returns True if value is written, returns False if an error occured
+    """
+    # Reading the outputs current state to calculate the new value in the file
+    path ="/home/ea/dout/DOUT_DATA"
+    file = open(path, "r")
+    currentValue = int(file.read())
+    file.close()
 
-    Funktion schaltet den Ausgang auf den angegeben Status.
-    Funktion ueberprueft nicht den aktuellen Status des Ausgangs.
-    """
-    #Auslesen des aktuell geschalteten Zustandes fuer die Berechnung des neuen Wertes in der Datei
-    fname="/sys/kernel/dout_drv/DOUT_DATA"
-    datei = open(fname, "r")
-    schaltung = int(datei.read())
-    datei.close()
-    #Addition bzw. Subtraktion zum aktuellen Zustand um den entsprechenden Ausgang zu schalten
-    #Least Significant Bit entspricht dabei digitalem Ausgang 1, das 4. Bit entspricht Ausgang 8
-    #In die Datei wird eine Zahl von 0 bis 15 geschrieben
-    if iAusgang == 1:
-        if xStatus:
-            schaltung = schaltung + 1
+    # Addition or rather subtraction to the current state to switch the corresponding output
+    # Least Significant Bit corresponds to digital output 1, the 4th bit corresponds to output 8
+    # A number from 0 to 15 is written to the file
+    if output == 1:
+        if value:
+            currentValue += 1
         else:
-            schaltung = schaltung - 1
-    elif iAusgang == 2:
-        if xStatus:
-            schaltung = schaltung + 2
+            currentValue -= 1
+    elif output == 2:
+        if value:
+            currentValue += 2
         else:
-            schaltung = schaltung - 2
-    elif iAusgang == 3:
-        if xStatus:
-            schaltung = schaltung + 4
+            currentValue -= 2
+    elif output == 3:
+        if value:
+            currentValue += 4
         else:
-            schaltung = schaltung - 4
-    elif iAusgang == 4:
-        if xStatus:
-            schaltung = schaltung + 8
+            currentValue -= 4
+    elif output == 4:
+        if value:
+            currentValue += 8
         else:
-            schaltung = schaltung - 8
+            currentValue -= 8
     else:
-        logging.warning("Ausgang nicht korrekt")
-    #Schreibt den fuer die neue Konfiguration errechneten Wert in die Datei auf dem CC100 
-    datei = open(fname, "w")
-    datei.write(str(schaltung))
-    datei.close()
-    #Gibt True nach Abschluss zurueck
+        logging.warning("Output is false")
+
+    # Writes the calculated value for the new configuration to the file on the CC100
+    file = open(path, "w")
+    file.write(str(currentValue))
+    file.close()
+    # Returns True after completion
     return True
 
-def analogWrite(iSpannung, iAusgang):
-    """
-    iSpannung: Spannung welche am analogen Ausgang geschaltet werden soll
-    iAusgang: Ausgang, welcher geschaltet werden soll
 
-    Funktion schaltet den analogen Ausgang auf die angegebenen Spannung
+def analogWrite(output, voltage):
     """
-    iSpannung = calibrateOut(iSpannung, iAusgang)
-    if iSpannung < 0:
-        iSpannung = 0
-    #Aktiviert die analogen Ausgaenge am CC100 durch schreiben 
-    AO1_POWER_FILE="/sys/bus/iio/devices/iio:device0/out_voltage1_powerdown"
-    f=open(AO1_POWER_FILE, "w")
-    f.write("0")
-    f.close()
-    AO2_POWER_FILE="/sys/bus/iio/devices/iio:device1/out_voltage2_powerdown"
-    datei=open(AO2_POWER_FILE, "w")
-    datei.write("0")
+    voltage: Voltage which the selected output should be set to
+    output: Analog output to be switched
+    Function switches the output to the specified voltage
+    Function does not check the current value of the output
+    Function returns True if value is written, returns False if an error occured
+    """
+    if (voltage<0 and voltage >10000):
+        voltage = calibrateOut(voltage, output)
+        if voltage < 0:
+            voltage= 0
+
+        # Activates the analog outputs on the CC100
+        path = "/home/ea/anout/40017000.dac:dac@1/iio:device0/out_voltage1_powerdown"
+        file = open(path, "w")
+        file.write("0")
+        file.close()
+
+        path = "/home/ea/anout/40017000.dac:dac@2/iio:device1/out_voltage2_powerdown"
+        file = open(path, "w")
+        file.write("0")
+        file.close()
+
+        # Writes the voltage, taken from the calibration for the corresponding output,
+        # for the voltage to the file for the output
+        # When turning off, zero is written to the file
+        if output == 1:
+            path="/home/ea/anout/40017000.dac:dac@1/iio:device0/out_voltage1_raw"
+            file = open(path, "w")
+            file.write(str(voltage))
+            file.close()
+
+        elif output == 2:
+            path="/home/ea/anout/40017000.dac:dac@2/iio:device1/out_voltage2_raw"
+            file=open(path, "w")
+            file.write(str(voltage))
+            file.close()
+            
+        # Returns True after completion
+        return True
+
+def digitalRead(input):
+    """
+    input: Digital input to be switched
+    Function reads the input
+    Function does not check the current value of the output
+    Returns True or False depending on the value
+    """
+
+    # Reads the state of the digital inputs on the CC100
+    path = "/home/ea/din/din"
+    datei = open (path, "r")
+    value = datei.readline()
     datei.close()
-    #Schreibt den aus der Kalibrierung fuer den passenden Ausgang entnommenen Wert fuer die Spannung in die Datei fuer den Ausgang
-    #Beim ausschalten wird eine Null in die Datei geschrieben
-    #Kalibrierung mit calibration.py
-    if iAusgang == 1:
-        AO1_VOLTAGE_FILE="/sys/bus/iio/devices/iio:device0/out_voltage1_raw"
-        datei=open(AO1_VOLTAGE_FILE, "w")
-        #aenderung fuer die Spannung von Ausgang 1 in der folgenden Zeile
-        datei.write(str(iSpannung))
-        datei.close()
-    if iAusgang == 2:
-        AO1_VOLTAGE_FILE="/sys/bus/iio/devices/iio:device1/out_voltage2_raw"
-        datei=open(AO1_VOLTAGE_FILE, "w")
-        #aenderung fuer die Spannung von Ausgang 1 in der folgenden Zeile
-        datei.write(str(iSpannung))
-        datei.close()
 
-def digitalRead(iEingang):
-    """
-    iEingang: Nummer des digitalen Eingangs welcher ausgelesen werden soll
+    # Formats the current state into an 8-digit binary code
+    value = int(value)
+    value0B = format(value, "08b")
 
-    Liest den Eingang aus
-    Gibt True oder False entsprechend dem Status zurueck
-    """
-    #Liest den Zustand der digitalen Eingaenge auf dem CC100
-    fname="/sys/devices/platform/soc/44009000.spi/spi_master/spi0/spi0.0/din"
-    datei = open (fname, "r")
-    dig_in = datei.readline()
-    datei.close()
-    #Formt den aktuellen Zustand in einen 8-Stelligen binaer Code um
-    dig_in = int (dig_in)
-    dig_in_bin=format(dig_in, "08b")
-    #Errechnet die Position des Bits vom gesuchten Eingang
-    iBit = 8 - iEingang
-    #Gibt den Wert von dem Zustand des gesuchten Einganges zurueck
-    if int(dig_in_bin[iBit])==1:
+    # Calculates the position of the bit from the desired input
+    inputBit = 8 - input
+
+    # Returns the value of the state of the desired input
+    # Note: Last index(read from left to right) ist the Least Significant Bit.
+    if int(value0B[inputBit]) == 1:
         return True
     else:
         return False
 
-def digitalReadWait(iEingang, xZustand):
+def digitalReadWait(input, value):
     """
-    iEingang: Nummer des Eingangs, welcher ueberprueft werden soll
-    xZustand: Zustand, welcher an dem Eingang abgefragt werden soll
+    input: Digital input to be checked
+    value: State to be queried at the input
+    Reads the specified input until the desired state is reached,
+    by another Function or external factors and then returns True
+    Function runs until the state is reached.
+    """
 
-    Liest den angegebenen Eingang solange aus, bis der Zustand erreicht ist und gibt dann True zurueck.
-    Funktion laeuft bis der Zustand erreicht ist.
-    """
-    eingangSchleife = True
-    #Wandelt den angegebenen Zustand in eine Zahl um
-    if xZustand:
-        xZustand = 1
+    # Converts the given bool into a number
+    if value:
+        value = 1
     else:
-        xZustand = 0
-    #Fragt solange den Eingang ab, bis dieser den angegebenen Zustand erreicht hat
-    #Beendet dann die Schleife und gibt True zurueck
-    while eingangSchleife:
-        if digitalRead(iEingang)==xZustand:
-            eingangSchleife = False
+        value = 0
+
+    # Checks the input as long as it reaches the given state
+    # Then ends the loop and returns True
+    loop_condition = True
+    while loop_condition:
+        if digitalRead(input) == value:
+            loop_condition = False
             return True
 
-def analogRead(iEingang):
+def analogRead(input):
     """
-    iEingang: Nummer des Eingangs, welcher ausgelesen werden soll
+    input: Analog input to be switched
+    Function reads the input and returns the calibrated value in mV as an Integer.
+    """
 
-    Liest den Eingang aus und gibt den kalibrierten Wert in mV zurueck.
-    """ 
-    #Waehlt die fuer den Eingang passende Datei aus
-    if iEingang == 1:
-        fname="/sys/bus/iio/devices/iio:device3/in_voltage3_raw"
-    if iEingang == 2:
-        fname="/sys/bus/iio/devices/iio:device3/in_voltage0_raw"
-    #oeffnet die Datei und liest die den Wert in dieser aus
-    f=open(fname, "r")
-    iSpannung=int(f.readline())
-    f.close()
-    #Kalibriert den Wert und gibt diesen zurueck
-    return(calibrateIn(iSpannung, iEingang))
+    # Reads the state of the analog input on the CC100
+    if input == 1:
+        path="/home/ea/anin/48003000.adc:adc@100/iio:device3/in_voltage3_raw"
+    elif input == 2:
+        path="/home/ea/anin/48003000.adc:adc@100/iio:device3/in_voltage0_raw"
+
+    file = open(path, "r")
+    voltage = int(file.readline())
+    file.close()
+
+    return(calibrateIn(voltage, input))
 
 def delay(iTime):
     iTime = iTime/1000
