@@ -70,8 +70,8 @@ def analogWrite(voltage, output):
     """
     if (voltage>0 and voltage <10000):
         voltage = calibrateOut(voltage, output)
-        if voltage < 0:
-            voltage= 0
+    if voltage < 0:
+        voltage = 0
 
         # Activates the analog outputs on the CC100
         path = "/home/ea/anout/40017000.dac:dac@1/iio:device0/out_voltage1_powerdown"
