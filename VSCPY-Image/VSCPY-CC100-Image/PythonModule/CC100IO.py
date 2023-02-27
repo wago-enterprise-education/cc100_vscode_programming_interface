@@ -12,7 +12,7 @@
 import time
 import logging
 #Funktionen zum Ansteuern und Auslesen der Ein- und Ausgaenge
-def digitalWrite(output, value):
+def digitalWrite(value, output):
     """
     value: Value which the selected output should be set to
     output: Digital output to be switched
@@ -60,7 +60,7 @@ def digitalWrite(output, value):
     return True
 
 
-def analogWrite(output, voltage):
+def analogWrite(voltage, output):
     """
     voltage: Voltage which the selected output should be set to
     output: Analog output to be switched
@@ -68,7 +68,7 @@ def analogWrite(output, voltage):
     Function does not check the current value of the output
     Function returns True if value is written, returns False if an error occured
     """
-    if (voltage<0 and voltage >10000):
+    if (voltage>0 and voltage <10000):
         voltage = calibrateOut(voltage, output)
         if voltage < 0:
             voltage= 0
