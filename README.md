@@ -31,11 +31,15 @@
 ##### Anleitungen
 
 Treiber-Installation:
-```
+``` bash
 cd Downloads
 unzip LCD-show-master.zip
 cd LCD-show-master/
 sudo bash ./LCD5-show
+```
+
+``` bash
+pip install CC100IO
 ```
 
 ### CC100

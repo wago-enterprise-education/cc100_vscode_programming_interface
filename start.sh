@@ -12,4 +12,4 @@ docker run -d --name=code-server -e PUID=1000 -e PGID=1000 -e TZ=Europe/Berlin -
 -v /sys/devices/platform/soc/40017000.dac:/home/ea/anout \
 -v /etc/calib:/home/ea/cal/calib \
 -v /sys/devices/platform/soc/48003000.adc:/home/ea/anin \
---privileged konradholsmoelle/vscpy:cc100.1
+--privileged bzporta/pipdocker:1.0
