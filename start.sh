@@ -13,3 +13,6 @@ docker run -d --name=code-server -e PUID=1000 -e PGID=1000 -e TZ=Europe/Berlin -
 -v /etc/calib:/home/ea/cal/calib \
 -v /sys/devices/platform/soc/48003000.adc:/home/ea/anin \
 --privileged bzporta/pipdocker:1.0
+
+#After chmod +x /etc/init.d/start.sh
+#ln -s /etc/init.d/start.sh /etc/rc.d/
