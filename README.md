@@ -8,14 +8,9 @@
 - Tobias Schäkel <tobias.schaekel@wago.com>
 - Mattis Schrade <mattis.schrade@wago.com>
 - Konrad Holsmölle <konrad.holsmoelle@wago.com>
-
-## Ziele
-
-- [x] Ethernetverbindung über Raspberry Pi
-- [x] Webserver auf CC100
-- [x] Container auf CC100 zum programmieren
-
-
+- Bjarne Zaremba <bjarne.zaremba@wago.com>
+- Danny Meihoefer <danny.meihoefer@wago.com>
+- Sascha Hahn <sascha.hahn@wago.com>
 
 ### Raspberry Pi
 
@@ -43,12 +38,9 @@ pip install CC100IO
 ```
 
 ### CC100
-[Python3 ipk downloaden](https://github.com/WAGO/cc100-howtos/blob/main/HowTo_AddPython3/packages/python3_3.7.6_armhf.ipk)
+- [Docker installieren](https://github.com/WAGO/docker-ipk)
+- [Python3 ipk downloaden](https://github.com/WAGO/cc100-howtos/blob/main/HowTo_AddPython3/packages/python3_3.7.6_armhf.ipk)
 IPK-Datei wie die Docker-IPK im WBM installieren
-
-[Docker installieren](https://github.com/WAGO/docker-ipk)
-
-Docker Container von DockerHub laden <br>
-`docker pull konradholsmoelle/vscpy:cc100latest`
-
-vscpy.sh ausführen
+- Docker Container von DockerHub laden <br>
+`docker pull bzporta/pipdocker:1.0`
+- vscpy.sh ausführen
