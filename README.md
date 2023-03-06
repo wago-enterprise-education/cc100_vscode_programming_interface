@@ -38,9 +38,8 @@ pip install CC100IO
 ```
 
 ### CC100
-- [Docker installieren](https://github.com/WAGO/docker-ipk)
-- [Python3 ipk downloaden](https://github.com/WAGO/cc100-howtos/blob/main/HowTo_AddPython3/packages/python3_3.7.6_armhf.ipk)
-IPK-Datei wie die Docker-IPK im WBM installieren
-- Docker Container von DockerHub laden <br>
+- [Installation of Docker on the CC100](https://github.com/WAGO/docker-ipk)
+- [Installation of Python3 on the CC100](https://github.com/WAGO/cc100-howtos/blob/main/HowTo_AddPython3/packages/python3_3.7.6_armhf.ipk) Download the .ipk-Data and install it as same as Docker 
+- Pull the Docker-Container on DockerHub <br>
 `docker pull bzporta/pipdocker:1.0`
-- vscpy.sh ausführen
+- execute startup.sh
