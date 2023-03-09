@@ -37,21 +37,31 @@ docker run -d --name=code-server -e PUID=1000 -e PGID=1000 -e TZ=Europe/Berlin -
 -v /etc/calib:/home/ea/cal/calib \
 -v /sys/devices/platform/soc/48003000.adc:/home/ea/anin \
 --privileged bzporta/vscpy3
-echo "cp /home/code-server/config/workspace/Test.py /root/PythonModul
-python3 /root/PythonModul/Test.py
-chmod -R 777 /sys/kernel/dout_drv/DOUT_DATA
+
+
+#Modul installieren auf dem Docker-Container
+# pip install CC100IO
+#Modul installieren auf dem CC100 direkt
+mkdir /home/code-server/config/init
+cp /home/code-server/config/workspace/Autostart.py /home/code-server/config/init
+wget -P /home/code-server/config/init https://raw.githubusercontent.com/wago-enterprise-education/wago_cc100/main/CC100IO/CC100IO.py?token=GHSAT0AAAAAAB7X46MHUSK5574QLIUPB7ZUZAJ5KSQ
+mv /home/code-server/config/init/CC100IO.py?token=GHSAT0AAAAAAB7X46MHUSK5574QLIUPB7ZUZAJ5KSQ /home/code-server/config/init/CC100IO.py
+
+#Automatisches Erstellen und Ausfüllen der start.sh-Datei
+echo 'python3 /home/code-server/config/init/Autostart.py \n chmod -R 777 /sys/kernel/dout_drv/DOUT_DATA
 chmod -R 777 /sys/devices/platform/soc/44009000.spi/spi_master/spi0/spi0.0
 chmod -R 777 /sys/devices/platform/soc/40017000.dac
 chmod -R 777 /etc/calib
 chmod -R 777 /sys/devices/platform/soc/48003000.adc
 chmod -R 777 /sys/bus/iio/devices
-sleep 2
-echo "docker run -d --name=code-server -e PUID=1000 -e PGID=1000 -e TZ=Europe/Berlin -p 8443:8443 -v /home/code-server/config:/config --privileged \
+#Start des Code-Server-Containers
+docker run -d --name=code-server -e PUID=1000 -e PGID=1000 -e TZ=Europe/Berlin -p 8443:8443 -v /home/code-server/config:/config --privileged \
 -v /sys/kernel/dout_drv:/home/ea/dout \
 -v /sys/devices/platform/soc/44009000.spi/spi_master/spi0/spi0.0:/home/ea/din \
 -v /sys/devices/platform/soc/40017000.dac:/home/ea/anout \
 -v /etc/calib:/home/ea/cal/calib \
 -v /sys/devices/platform/soc/48003000.adc:/home/ea/anin \
---privileged bzporta/vscpy3" > /etc/init.d/start.sh
-chmod +x /etc/init.d/start.sh
-ln -s /etc/init.d/start.sh /etc/rc.d/	
+--privileged bzporta/vscpy3
+' > /etc/init.d/start.sh
+chmod -x /etc/init.d/start.sh
+ln -s /etc/init.d/start_my_app /etc/rc.d/
