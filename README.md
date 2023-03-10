@@ -1,14 +1,14 @@
-# Projekt "onboard CC100 programming" ET'23
+# Onboard CC100 programming
 
 ## Teilnehmer
 
+- Bjarne Zaremba <bjarne.zaremba@wago.com>
 - Nele Stocksmeyer <nele.stocksmeyer@wago.com>
 - Bekim Imrihor <bekim.imrihor@wago.com>
 - Tobias Pape <tobias.pape@wago.com>
 - Tobias Schäkel <tobias.schaekel@wago.com>
 - Mattis Schrade <mattis.schrade@wago.com>
 - Konrad Holsmölle <konrad.holsmoelle@wago.com>
-- Bjarne Zaremba <bjarne.zaremba@wago.com>
 - Danny Meihoefer <danny.meihoefer@wago.com>
 - Sascha Hahn <sascha.hahn@wago.com>
 
@@ -31,10 +31,6 @@ cd Downloads
 unzip LCD-show-master.zip
 cd LCD-show-master/
 sudo bash ./LCD5-show
-```
-
-``` bash
-pip install CC100IO
 ```
 
 ### CC100
