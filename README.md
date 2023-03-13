@@ -12,6 +12,31 @@
 - Danny Meihoefer <danny.meihoefer@wago.com>
 - Sascha Hahn <sascha.hahn@wago.com>
 
+### Installation des Code-Servers auf dem CC100
+#### Einrichtung im WBM
+1. WBM mit ``` 192.168.1.17 ``` aufrufen (Anmeldung mit: Benutzer: **admin**; Passwort: **wago**)
+2. IP-Adresse auf ``` 192.168.2.xxx ``` ändern (*Configuration->Networking->TCP/IP-Configuration->Static-IP umstellen*)
+3. WBM mit neuer IP-Adresse aufrufen (vorher Netzwerk-Einstellungen der Schnittstelle am PC passend einstellen)
+4. SD-Karte hinzufügen (*Configuration -> Mass Storage -> Create new Filesystem on Memory Card (**Ext4**; Label: **sd***)
+
+#### Für Internet über den RaspberryPi
+1. Image für den Raspberry vom Github runterladen (**!!Link folgt noch!!**)
+2. Mit [*Windows Disk-Imager*](https://sourceforge.net/projects/win32diskimager/) das Image auf leere SD-Karte spielen
+3. Raspberry starten
+4. Treiber für das Display installieren ``` sudo bash ./LCD5-show ```
+##### Einstellungen im WBM
+6. Subnetzmaske **255.255.255.0** und Default Gateway **192.168.2.1** eintragen (*Configuration->Networking->TCP/IP-Configuration*)
+7. Neuen DNS-Server mit IP **192.168.2.1** hinzufügen (*Configuration->Networking->TCP/IP-Configuration*)
+8. IP-Forwarding through multiple interfaces aktivieren (*Configuration->Networking->Routing*) 
+9. HTTP aktivieren (*Configuration->Ports and Services->Network Services*)
+10. DNS-Server hinzufügen IP-Address: **192.168.2.1** ; Hostname: **Raspberry** (*Configuation->Ports and Services->DNS*)
+
+#### 
+1. Per SSH auf den CC100 schalten (Git Bash öffnen ``` ssh root@192.168.2.xxx ``` Passwort: **wago**)
+2. startup.sh-Datei auf den CC100 laden (``` wget -P /root/startup https://raw.githubusercontent.com/wago-enterprise-education/cc100_vscode/main/startup.sh?token=GHSAT0AAAAAAB7X46MHPJJM34RNYN66ABVSZAO7HIA ``` )
+3. Startup.sh ausführen ``` sh /root/startup/startup.sh ```
+
+## Weiteres Hilfsreiches
 ### Raspberry Pi
 
 ##### Downloads
@@ -32,9 +57,4 @@ cd LCD-show-master/
 sudo bash ./LCD5-show
 ```
 
-### CC100
-- [Installation of Docker on the CC100](https://github.com/WAGO/docker-ipk)
-- [Installation of Python3 on the CC100](https://github.com/WAGO/cc100-howtos/blob/main/HowTo_AddPython3/packages/python3_3.7.6_armhf.ipk) Download the .ipk-Data and install it as same as Docker in the WBM
-- Pull the Docker-Container on DockerHub <br>
-`docker pull bzporta/pipdocker:1.0`
-- execute startup.sh
+
