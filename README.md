@@ -31,7 +31,7 @@
 9. HTTP aktivieren (*Configuration->Ports and Services->Network Services*)
 10. DNS-Server hinzufügen IP-Address: **192.168.2.1** ; Hostname: **Raspberry** (*Configuation->Ports and Services->DNS*)
 
-#### 
+#### Installation des Code-Servers
 1. Per SSH auf den CC100 schalten (Git Bash öffnen ``` ssh root@192.168.2.xxx ``` Passwort: **wago**)
 2. startup.sh-Datei auf den CC100 laden (``` wget -P /root/startup https://raw.githubusercontent.com/wago-enterprise-education/cc100_vscode/main/startup.sh?token=GHSAT0AAAAAAB7X46MHPJJM34RNYN66ABVSZAO7HIA ``` )
 3. Startup.sh ausführen ``` sh /root/startup/startup.sh ```
