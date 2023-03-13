@@ -1,3 +1,6 @@
+#Author
+#Bjarne Zaremba <bjarne.zaremba@wago.com>
+
 #Erstellen eines Ordners für die .ipk-Dateien
 mkdir /root/ipk_packages
 cd /root/ipk_packages
