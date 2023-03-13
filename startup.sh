@@ -30,14 +30,13 @@ chmod -R 777 /etc/calib
 chmod -R 777 /sys/devices/platform/soc/48003000.adc
 chmod -R 777 /sys/bus/iio/devices
 #Start des Code-Server-Containers
-docker run -d --name=code-server -e PUID=1000 -e PGID=1000 -e TZ=Europe/Berlin -p 8443:8443 -v /home/code-server/config:/config --privileged \
+docker run -d --name=code-server -e PUID=1000 -e PGID=1000 -e TZ=Europe/Berlin -p 8443:8443 -v /home/code-server/config:/config --restart unless-stopped --privileged \
 -v /sys/kernel/dout_drv:/home/ea/dout \
 -v /sys/devices/platform/soc/44009000.spi/spi_master/spi0/spi0.0:/home/ea/din \
 -v /sys/devices/platform/soc/40017000.dac:/home/ea/anout \
 -v /etc/calib:/home/ea/cal/calib \
 -v /sys/devices/platform/soc/48003000.adc:/home/ea/anin \
 --privileged bzporta/vscpy3
-
 
 #Modul installieren auf dem Docker-Container
 # pip install CC100IO
@@ -48,14 +47,14 @@ wget -P /home/code-server/config/init https://raw.githubusercontent.com/wago-ent
 mv /home/code-server/config/init/CC100IO.py?token=GHSAT0AAAAAAB7X46MHUSK5574QLIUPB7ZUZAJ5KSQ /home/code-server/config/init/CC100IO.py
 
 #Automatisches Erstellen und Ausfüllen der start.sh-Datei
-echo 'python3 /home/code-server/config/init/Autostart.py \n chmod -R 777 /sys/kernel/dout_drv/DOUT_DATA
+echo 'python3 /home/code-server/config/init/Autostart.py 
+chmod -R 777 /sys/kernel/dout_drv/DOUT_DATA
 chmod -R 777 /sys/devices/platform/soc/44009000.spi/spi_master/spi0/spi0.0
 chmod -R 777 /sys/devices/platform/soc/40017000.dac
 chmod -R 777 /etc/calib
 chmod -R 777 /sys/devices/platform/soc/48003000.adc
 chmod -R 777 /sys/bus/iio/devices
-#Start des Code-Server-Containers
-docker run -d --name=code-server -e PUID=1000 -e PGID=1000 -e TZ=Europe/Berlin -p 8443:8443 -v /home/code-server/config:/config --privileged \
+docker run -d --name=code-server -e PUID=1000 -e PGID=1000 -e TZ=Europe/Berlin -p 8443:8443 -v /home/code-server/config:/config --restart unless-stopped --privileged \
 -v /sys/kernel/dout_drv:/home/ea/dout \
 -v /sys/devices/platform/soc/44009000.spi/spi_master/spi0/spi0.0:/home/ea/din \
 -v /sys/devices/platform/soc/40017000.dac:/home/ea/anout \
@@ -64,4 +63,4 @@ docker run -d --name=code-server -e PUID=1000 -e PGID=1000 -e TZ=Europe/Berlin -
 --privileged bzporta/vscpy3
 ' > /etc/init.d/start.sh
 chmod -x /etc/init.d/start.sh
-ln -s /etc/init.d/start_my_app /etc/rc.d/
+ln -s /etc/init.d/start.sh /etc/rc.d/
