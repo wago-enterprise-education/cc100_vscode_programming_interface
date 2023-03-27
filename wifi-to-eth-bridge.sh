@@ -2,7 +2,7 @@
 #Dadurch lässt sich ein Endgerät (WAGO -Controller) mit dem öffentlichen W-Lan verbinden.
 #"sudo apt-get install dnsmasq" muss im Vorfeld auf dem Raspberry Pi installiert worden sein.
 #Authors:
-#Tobias Pape <tobias.papeqwago.com>
+#Tobias Pape <tobias.pape@wago.com>
 #Tobias Schaekel <tobias.schaekel@wago.com>
 
 #!/bin/bash

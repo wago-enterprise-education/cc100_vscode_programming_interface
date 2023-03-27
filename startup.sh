@@ -65,5 +65,5 @@ docker run -d --name=code-server -e PUID=1000 -e PGID=1000 -e TZ=Europe/Berlin -
 -v /sys/devices/platform/soc/48003000.adc:/home/ea/anin \
 --privileged bzporta/vscpy3
 ' > /etc/init.d/start.sh
-chmod -x /etc/init.d/start.sh
+chmod -R 777 /etc/init.d/start.sh
 ln -s /etc/init.d/start.sh /etc/rc.d/
