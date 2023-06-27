@@ -42,7 +42,8 @@ docker run -d --name=code-server -e PUID=1000 -e PGID=1000 -e TZ=Europe/Berlin -
 --privileged bzporta/vscpy3
 
 #Modul installieren auf dem Docker-Container
-# pip install CC100IO
+#git clone https://github.com/wago-enterprise-education/wago_cc100_python.git
+
 #Modul installieren auf dem CC100 direkt
 mkdir /home/code-server/config/init
 cp /home/code-server/config/workspace/Autostart.py /home/code-server/config/init
