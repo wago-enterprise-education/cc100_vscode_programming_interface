@@ -1,7 +1,9 @@
-# Onboard CC100 programming
+# VS Code for WAGO CC100 Web-IDE
+
+**Dieses Repository ist ein Entwicklungs-Repository, das im Rahmen eines studentischen Projekts erstellt wurde und nicht regelmäßig gepflegt wird. Es handelt sich weder um eine stabile Version noch um ein offizielles Repository der WAGO GmbH & Co. KG.** 
 
 ## Teilnehmer
-
+- Maik Rehburg <maik.rehburg@wago.com>
 - Bjarne Zaremba <bjarne.zaremba@wago.com>
 - Nele Stocksmeyer <nele.stocksmeyer@wago.com>
 - Bekim Imrihor <bekim.imrihor@wago.com>
