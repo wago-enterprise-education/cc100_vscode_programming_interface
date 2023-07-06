@@ -1,6 +1,6 @@
 # Visual Studio Code and WAGO Programming Interface for WAGO CC100
 
-This Image contains Visual Studion Code as a webservice for the WAGO CC100 Compact Controller. It uses the wago_cc100_python module to easily access the inputs and outputs of the WAGO CC100. In addition, it provides the WAGO Programming Interface to control the inputs and outputs directly via a web interface.
+This Image contains Visual Studion Code as a webservice for the WAGO CC100 Compact Controller. It uses the wago_cc100_python module to easily access the inputs and outputs of the WAGO CC100. In addition, it provides the CC100 Programming Interface to control the inputs and outputs directly via a web interface.
 
 **This repository is a development repository that was created as part of a student project and is not regularly maintained. It is neither a stable version nor an official repository of WAGO GmbH & Co. KG.** 
 
@@ -18,7 +18,7 @@ This Image contains Visual Studion Code as a webservice for the WAGO CC100 Compa
 
 ## Installation of code server and WAGO Programming Interface on the CC100
 ### Prerequisite
-- FW >= 23(04.01.10)
+- CC100 Firmware >= 23(04.01.10)
 - CC100 is connected to Internet
 
 ### Setup in WBM
@@ -36,11 +36,11 @@ This Image contains Visual Studion Code as a webservice for the WAGO CC100 Compa
 3. execute setup.sh ``` sh /root/startup/startup.sh ``` )
 
 ### Access to the code server and the WAGO Programming Interface
-To access VS Code orWAGO Programming Interface type the IP address of the WAGO CC100 in your Webbrowser and add the according port
+To access VS Code or CC100 Programming Interface type the IP address of the WAGO CC100 in your Webbrowser and add the according port
 ```
 http:<IP address>:8443 for VS Code
 ```
 or
 ```
-http:<IP address>:3000 for WAGO Programming Interface
+http:<IP address>:3000 for CC100 Programming Interface
 ```
