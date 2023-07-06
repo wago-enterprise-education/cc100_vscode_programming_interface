@@ -1,4 +1,5 @@
 FROM linuxserver/code-server
+#FROM linuxserver/code-server:arm32v7-latest
 
 RUN apt update &&\
     apt install -y python3 &&\
@@ -20,7 +21,6 @@ RUN git clone https://github.com/wago-enterprise-education/cc100_programming_int
 
 # add python extension to vs code
 ENV VSCODE_EXTENSION_IDS="ms-python.python"
-#RUN install-extension ms-python.python
 
 # start cc100 programming interface
 CMD [ "npm", "start", "--prefix", "cc100_programming_interface/server/" ]

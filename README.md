@@ -1,6 +1,8 @@
 # VS Code for WAGO CC100 Web-IDE
 
-**Dieses Repository ist ein Entwicklungs-Repository, das im Rahmen eines studentischen Projekts erstellt wurde und nicht regelmäßig gepflegt wird. Es handelt sich weder um eine stabile Version noch um ein offizielles Repository der WAGO GmbH & Co. KG.** 
+This Image contains Visual Studion Code as a webservice for the WAGO CC100 Compact Controller. It uses the wago_cc100_python module to easily access the inputs and outputs of the WAGO CC100. In addition, it provides the WAGO Programming Interface to control the inputs and outputs directly via a web interface.
+
+**This repository is a development repository that was created as part of a student project and is not regularly maintained. It is neither a stable version nor an official repository of WAGO GmbH & Co. KG.** 
 
 ## Teilnehmer
 - Maik Rehburg <maik.rehburg@wago.com>
@@ -14,21 +16,31 @@
 - Danny Meihoefer <danny.meihoefer@wago.com>
 - Sascha Hahn <sascha.hahn@wago.com>
 
-## Installation des Code-Servers auf dem CC100
-### Einrichtung im WBM
-1. WBM mit ``` 192.168.1.17 ``` aufrufen (Anmeldung mit: Benutzer: **admin**; Passwort: **wago**)
-2. IP-Adresse auf ``` 192.168.2.xxx ``` ändern (*Configuration->Networking->TCP/IP-Configuration->Static-IP umstellen*)
-3. WBM mit neuer IP-Adresse aufrufen (vorher Netzwerk-Einstellungen der Schnittstelle am PC passend einstellen)
-4. SD-Karte hinzufügen (*Configuration -> Mass Storage -> Create new Filesystem on Memory Card (**Ext4**; Label: **sd***)
+## Installation of code server and WAGO Programming Interface on the CC100
+### Prerequisite
+- FW >= 23(04.01.10)
+- CC100 is connected to Internet
 
-#### Einstellungen im WBM
-6. Subnetzmaske **255.255.255.0** und Default Gateway **192.168.2.1** eintragen (*Configuration->Networking->TCP/IP-Configuration*)
-7. Neuen DNS-Server mit IP **192.168.2.1** hinzufügen (*Configuration->Networking->TCP/IP-Configuration*)
-8. IP-Forwarding through multiple interfaces aktivieren (*Configuration->Networking->Routing*) 
-9. HTTP aktivieren (*Configuration->Ports and Services->Network Services*)
-10. DNS-Server hinzufügen IP-Address: **192.168.2.1** ; Hostname: **Raspberry** (*Configuation->Ports and Services->DNS*)
+### Setup in WBM
+1. Enter WBM with IP address of CC100 (login with: user: **admin**; password: **wago**)
+2. insert SD card
+3. add SD card as storage medium (*Configuration -> Mass Storage -> Create new Filesystem on Memory Card (**Ext4**; Label: **sd***)
+4. add new DNS server with IP **8.8.8.8** (*Configuration->Networking->TCP/IP-Configuration*)
+5. enable IP forwarding through multiple interfaces (*Configuration->Networking->Routing*) 
+6. enable HTTP (*Configuration->Ports and Services->Network Services*)
 
-### Installation des Code-Servers
-1. Per SSH auf den CC100 schalten (Git Bash öffnen ``` ssh root@192.168.2.xxx ``` Passwort: **wago**)
-2. startup.sh-Datei auf den CC100 laden (``` wget -P /root/startup https://raw.githubusercontent.com/wago-enterprise-education/cc100_vscode/main/startup.sh ``` )
-3. Startup.sh ausführen ``` sh /root/startup/startup.sh ```
+
+### Installation and start of the code server
+1. connect to the CC100 via SSH (open Git Bash ``` ssh root@<IP address> ``` password: **wago**)
+2. download setup.sh file on the CC100 (``` wget -P /root/startup https://raw.githubusercontent.com/wago-enterprise-education/cc100_vscode_programming_interface/main/setup.sh ``` )
+3. execute setup.sh ``` sh /root/startup/startup.sh ``` )
+
+### Access to the code server and the WAGO Programming Interface
+To access VS Code orWAGO Programming Interface type the IP address of the WAGO CC100 in your Webbrowser and add the according port
+```
+http:<IP address>:8443 for VS Code
+```
+or
+```
+http:<IP address>:3000 for WAGO Programming Interface
+```
