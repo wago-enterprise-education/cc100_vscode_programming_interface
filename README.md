@@ -21,7 +21,7 @@ This Image contains Visual Studion Code as a webservice for the WAGO CC100 Compa
 - CC100 Firmware >= 23(04.01.10)
 - CC100 is connected to Internet
 
-### Setup in WBM
+### Configuration on CC100
 1. Enter WBM with IP address of CC100 (login with: user: **admin**; password: **wago**)
 2. insert SD card
 3. add SD card as storage medium (*Configuration -> Mass Storage -> Create new Filesystem on Memory Card (**Ext4**; Label: **sd***)
@@ -30,12 +30,12 @@ This Image contains Visual Studion Code as a webservice for the WAGO CC100 Compa
 6. enable HTTP (*Configuration->Ports and Services->Network Services*)
 
 
-### Installation and start of the code server
+### Installation and startup of the code server
 1. connect to the CC100 via SSH (open Git Bash ``` ssh root@<IP address> ``` password: **wago**)
 2. download setup.sh file on the CC100 (``` wget -P /root/startup https://raw.githubusercontent.com/wago-enterprise-education/cc100_vscode_programming_interface/main/setup.sh ``` )
 3. execute setup.sh ``` sh /root/startup/startup.sh ``` )
 
-### Access to the code server and the WAGO Programming Interface
+### Access the code server and the WAGO Programming Interface
 To access VS Code or CC100 Programming Interface type the IP address of the WAGO CC100 in your Webbrowser and add the according port
 ```
 http:<IP address>:8443 for VS Code
