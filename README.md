@@ -1,4 +1,4 @@
-# VS Code for WAGO CC100 Web-IDE
+# VS Code Web-IDE and WAGO Programming Interface Webservice for WAGO CC100
 
 This Image contains Visual Studion Code as a webservice for the WAGO CC100 Compact Controller. It uses the wago_cc100_python module to easily access the inputs and outputs of the WAGO CC100. In addition, it provides the WAGO Programming Interface to control the inputs and outputs directly via a web interface.
 
