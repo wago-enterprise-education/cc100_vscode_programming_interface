@@ -5,7 +5,7 @@ RUN apt update &&\
     apt install -y python3 &&\
     apt install -y nodejs &&\
     apt install -y npm &&\
-    apt install -y python3-pip
+    apt install -y python3-pi
 
 #setting /home as standard directory
 WORKDIR /home
