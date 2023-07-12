@@ -1,5 +1,5 @@
+#using linuxserver as base image
 FROM linuxserver/code-server
-#FROM linuxserver/code-server:arm32v7-latest
 
 RUN apt update &&\
     apt install -y python3 &&\
@@ -7,20 +7,14 @@ RUN apt update &&\
     apt install -y npm &&\
     apt install -y python3-pip
 
+#setting /home as standard directory
 WORKDIR /home
 
-# install python module for CC100
+#installing latest version of python modul
 RUN git clone https://github.com/wago-enterprise-education/wago_cc100_python.git && \
     cd wago_cc100_python/ && \
     pip install . && \
-    rm -rf wago_cc100_python/
+    rm -rf wago_cc100_python
 
-# install cc100 programming interface
+#adding cc100 programming interface
 RUN git clone https://github.com/wago-enterprise-education/cc100_programming_interface.git
-
-
-# add python extension to vs code
-ENV VSCODE_EXTENSION_IDS="ms-python.python"
-
-# start cc100 programming interface
-CMD [ "npm", "start", "--prefix", "cc100_programming_interface/server/" ]
