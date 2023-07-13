@@ -24,6 +24,7 @@ echo '{
                 "max-file": "5"
         }
 }' > /etc/docker/daemon.json
+sleep 10
 /etc/init.d/dockerd start
 
 
