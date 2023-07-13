@@ -40,6 +40,7 @@ chmod -R 777 /sys/bus/iio/devices
 #
 #Start des Code-Server-Containers
 #
+sleep 60
 docker pull wagoeducation/cc100vscode
 docker run -d --name=code-server -e PUID=1000 -e PGID=1000 -e TZ=Europe/Berlin -p 8443:8443 -p 3000:3000 -v /home/code-server/config:/config --restart unless-stopped \
 -v /sys/kernel/dout_drv:/home/ea/dout \
