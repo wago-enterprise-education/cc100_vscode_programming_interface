@@ -4,7 +4,7 @@ This Image contains Visual Studion Code as a webservice for the WAGO CC100 Compa
 
 **This repository is a development repository that was created as part of a student project and is not regularly maintained. It is neither a stable version nor an official repository of WAGO GmbH & Co. KG.** 
 
-## Teilnehmer
+## Contributors
 - Maik Rehburg <maik.rehburg@wago.com>
 - Bjarne Zaremba <bjarne.zaremba@wago.com>
 - Nele Stocksmeyer <nele.stocksmeyer@wago.com>
