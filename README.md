@@ -34,6 +34,7 @@ This Image contains Visual Studion Code as a webservice for the WAGO CC100 Compa
 1. connect to the CC100 via SSH (open Git Bash ``` ssh root@<IP address> ``` password: **wago**)
 2. download setup.sh file on the CC100 (``` wget -P /root/startup https://raw.githubusercontent.com/wago-enterprise-education/cc100_vscode_programming_interface/main/setup.sh ``` )
 3. execute setup.sh ``` sh /root/startup/setup.sh ```
+
 *Note: The execution of the script can take a long time. Even if nothing happens for a minute*
 
 ### Access the code server and the WAGO Programming Interface
